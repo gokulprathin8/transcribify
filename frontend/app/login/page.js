@@ -3,6 +3,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import {Button, Typography} from "antd";
+import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
+
+const {Title} = Typography;
 
 const LoginContainer = styled.div`
   display: flex;
@@ -20,6 +25,29 @@ const CodeBlockContainer = styled.div`
   flex: 1;
 `;
 
+const LoginInnerContainer = styled.div`
+  margin-left: 8rem;
+  margin-top: 8rem;
+`;
+
+const InputContainer = styled.div`
+  max-width: 50%;
+  margin-top: 20px;
+`;
+
+const LoginSubscript = styled.p`
+  color: darkgray;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-content: center;
+`;
+
+const LoginButton = styled(Button)`
+  max-width: 150px;
+`;
+
 export default function LoginPage() {
     return (
         <LoginContainer>
@@ -34,17 +62,26 @@ export default function LoginPage() {
             </ImageContainer>
 
             <CodeBlockContainer>
-                <form>
-                    <label>
-                        Username:
-                        <input type="text" name="username" />
-                    </label>
-                    <label>
-                        Password:
-                        <input type="password" name="password" />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                <LoginInnerContainer>
+                    <Title level={1}>Welcome back!</Title>
+
+                    <LoginSubscript>Please enter your details</LoginSubscript>
+
+                    <InputContainer>
+                        <Input size="large" placeholder="john.doe@example.com" prefix={<UserOutlined />} />
+                    </InputContainer>
+                    <InputContainer>
+                        <Input.Password
+                            size="large"
+                            prefix={<LockOutlined />}
+                            placeholder="Your password."
+                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        />
+                    </InputContainer>
+                    <ButtonContainer>
+                        <LoginButton type="primary"  block>Login</LoginButton>
+                    </ButtonContainer>
+                </LoginInnerContainer>
             </CodeBlockContainer>
         </LoginContainer>
     );
