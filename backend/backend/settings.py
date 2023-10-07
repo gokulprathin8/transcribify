@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-^jic0b$_8d&xs*vulv6)c7m#(z92=al-k(c-0te0=u9(j8a0cs
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Application definition
 
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    "rest_framework",
+
+    "accounts"
 ]
 
 MIDDLEWARE = [
