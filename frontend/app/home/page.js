@@ -15,15 +15,21 @@ import useAuthStore from "@/app/store/authStore";
 const { Title, Text } = Typography;
 
 const fetchMeetings = async (token) => {
-  const data = await fetch(`${BACKEND_SERVER_URL}/meetings/transcriptions`, {
+  const response = await fetch(`${BACKEND_SERVER_URL}/meetings/transcriptions/`, {
     method: 'GET',
     headers: {
       'Authorization': `Token ${token}`
     }
   });
-  console.log(data, 'd');
-  return data;
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error(`Failed to fetch meetings: ${response.status}`);
+  }
 }
+
 
 const DashboardPage = () => {
 
@@ -31,31 +37,40 @@ const DashboardPage = () => {
   const [meetings, setMeetings] = useState([]);
 
   useEffect(() => {
-    fetchMeetings(userToken).then(
-        async (resp) => {
-          setMeetings(await resp.json())
-          console.log(await resp.json())
-        }
-    )
+    fetchMeetings(userToken).then((data) => {
+      setMeetings(data);
+    }).catch((error) => {
+      console.error("There was an error fetching meetings:", error);
+    });
   }, []);
 
   
   const columns = [
     {
-      title: 'Meeting Title',
-      dataIndex: 'title',
+      title: 'Meeting',
+      dataIndex: 'meeting',
       render: text => <Text strong>{text}</Text>,
     },
     {
-      title: 'Date',
-      dataIndex: 'date',
+      title: 'Status',
+      dataIndex: 'status',
       render: text => <Text strong>{text}</Text>,
     },
     {
-      title: 'Category',
-      dataIndex: 'category',
+      title: 'Created At',
+      dataIndex: 'created_at',
       render: text => <Text strong>{text}</Text>,
     },
+    {
+      title: 'Transcription ID',
+      dataIndex: 'transcription_id',
+      render: text => <Text strong>{text}</Text>,
+    },
+    {
+      title: 'Transcription URL',
+      dataIndex: 'transcription_url',
+      render: text => <Text strong>{text}</Text>,
+    }
   ];
 
   const data = [
@@ -115,7 +130,7 @@ const DashboardPage = () => {
             }}
           />
         </Space>
-        <Table columns={columns} dataSource={data} pagination={false} />
+        <Table columns={columns} dataSource={meetings} pagination={false} />
       </div>
 
       {/* Calendar */}

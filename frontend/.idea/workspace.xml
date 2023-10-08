@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba93b74-9e27-4d81-ba4d-d6bb1e03090d" name="Changes" comment="changes to integrate api">
-      <change beforePath="$PROJECT_DIR$/../backend/meetings/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/meetings/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/meetings/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/meetings/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/meetings/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/meetings/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/register/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/register/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/constants.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696704386549</updated>
       <workItem from="1696704387322" duration="5537000" />
-      <workItem from="1696751344728" duration="9164000" />
+      <workItem from="1696751344728" duration="9795000" />
     </task>
     <task id="LOCAL-00001" summary="added login page structure">
       <option name="closed" value="true" />
