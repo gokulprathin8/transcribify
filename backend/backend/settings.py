@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     "accounts",
     "meetings",
+    "dashboard",
 ]
 
 MIDDLEWARE = [

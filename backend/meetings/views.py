@@ -95,7 +95,8 @@ class FileUploadView(views.APIView):
         serializer = FileUploadSerializer(data=request.data)
         if serializer.is_valid():
             file = serializer.validated_data['file']
-            file_name = file.name
+            extension = file.name.split('.')[-1]
+            unique_file_name = f"{uuid.uuid4()}.{extension}"
             bucket_name = "gmu-hackathon-devbucket0g33v4"
             region_name = 'us-east-1'
 
@@ -103,13 +104,13 @@ class FileUploadView(views.APIView):
                               aws_access_key_id=env('aws_access_key_id'),
                               aws_secret_access_key=env('aws_secret_access_key'),
                               aws_session_token=env('aws_session_token'))
+
             try:
-                s3.upload_fileobj(file, bucket_name, file_name)
-                file_url = f"https://{bucket_name}.s3.{region_name}.amazonaws.com/{file_name}"
-                return Response({"message": f"Successfully uploaded {file_name} to {bucket_name}.",
+                s3.upload_fileobj(file, bucket_name, unique_file_name)
+                file_url = f"https://{bucket_name}.s3.{region_name}.amazonaws.com/{unique_file_name}"
+                return Response({"message": f"Successfully uploaded to {bucket_name}.",
                                  "file_url": file_url}, status=status.HTTP_201_CREATED)
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
