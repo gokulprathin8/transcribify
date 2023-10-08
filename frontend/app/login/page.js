@@ -41,6 +41,7 @@ const LoginSubscript = styled.p`
 
 const ButtonContainer = styled.div`
   display: flex;
+  margin-top: 20px;
   align-content: center;
 `;
 
@@ -48,41 +49,45 @@ const LoginButton = styled(Button)`
   max-width: 150px;
 `;
 
-export default function LoginPage() {
-    return (
-        <LoginContainer>
-            <ImageContainer>
-                <Image
-                    src="/static/login-page.jpg"
-                    alt="Image Description"
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center"
-                />
-            </ImageContainer>
 
-            <CodeBlockContainer>
-                <LoginInnerContainer>
-                    <Title level={1}>Welcome back!</Title>
+// Function that does the 
+function LoginPage() {
+  return (
+      <LoginContainer>
+          <ImageContainer>
+              <Image
+                  src="/static/login-page.jpg"
+                  alt="Image Description"
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center"
+              />
+          </ImageContainer>
 
-                    <LoginSubscript>Please enter your details</LoginSubscript>
+          <CodeBlockContainer>
+              <LoginInnerContainer>
+                  <Title level={1}>Welcome back!</Title>
 
-                    <InputContainer>
-                        <Input size="large" placeholder="john.doe@example.com" prefix={<UserOutlined />} />
-                    </InputContainer>
-                    <InputContainer>
-                        <Input.Password
-                            size="large"
-                            prefix={<LockOutlined />}
-                            placeholder="Your password."
-                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                        />
-                    </InputContainer>
-                    <ButtonContainer>
-                        <LoginButton type="primary"  block>Login</LoginButton>
-                    </ButtonContainer>
-                </LoginInnerContainer>
-            </CodeBlockContainer>
-        </LoginContainer>
-    );
+                  <LoginSubscript>Please enter your details</LoginSubscript>
+
+                  <InputContainer>
+                      <Input size="large" placeholder="john.doe@example.com" prefix={<UserOutlined />} />
+                  </InputContainer>
+                  <InputContainer>
+                      <Input.Password
+                          size="large"
+                          prefix={<LockOutlined />}
+                          placeholder="Your password."
+                          iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                      />
+                  </InputContainer>
+                  <ButtonContainer>
+                      <LoginButton type="primary"  block>Login</LoginButton>
+                  </ButtonContainer>
+              </LoginInnerContainer>
+          </CodeBlockContainer>
+      </LoginContainer>
+  );
 }
+
+export default LoginPage;
