@@ -1,12 +1,13 @@
 "use client";
 
 import React from 'react';
-import { Row, Col, Card, Table, Calendar, Typography } from 'antd';
+import { Row, Col, Card, Table, Calendar, Typography, Button, Space } from 'antd';
 import {
   FileTextOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
   AppstoreAddOutlined,
+  ReloadOutlined,
 } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
@@ -77,7 +78,17 @@ const DashboardPage = () => {
 
       {/* Meetings History */}
       <div style={{ marginTop: '60px', marginBottom: '20px' }}>
-        <Title level={2}>Meetings History</Title>
+        <Space style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Title level={2}>Meetings History</Title>
+          <Button 
+            type="default" 
+            icon={<ReloadOutlined style={{ fontSize: '20px' }} />} 
+            onClick={() => {
+              // Add your refresh functionality here
+              console.log("Refreshed!");
+            }}
+          />
+        </Space>
         <Table columns={columns} dataSource={data} pagination={false} />
       </div>
 

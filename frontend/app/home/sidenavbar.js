@@ -33,8 +33,8 @@ function SideNavbar() {
         Profile
       </NavItem>
       <NavItem
-        active={router.pathname === "/overview"}
-        onClick={() => router.push("/overview")}
+        active={router.pathname === "/home"}
+        onClick={() => router.push("/home")}
       >
         Overview
       </NavItem>
@@ -55,6 +55,18 @@ function SideNavbar() {
         onClick={() => router.push("/notifications")}
       >
         Notifications
+      </NavItem>
+      <NavItem
+        active={router.pathname === "home/upload"}
+        onClick={() => router.push("home/upload")}
+      >
+        Upload
+      </NavItem>
+      <NavItem
+        active={router.pathname === "/login"}
+        onClick={() => router.push("/login")}
+      >
+        Logout
       </NavItem>
     </Navbar>
   );
