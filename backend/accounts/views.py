@@ -51,8 +51,9 @@ class Profile(generics.ListAPIView):
     serializer_class = CustomUserSerializer
 
     def list(self, request, *args, **kwargs):
-        current_user_data = CustomUser.objects.filter(pk=request.user.id).first()
-        return current_user_data
+        return Response(data={'first_name': request.user.first_name,
+                              'last_name': request.user.last_name,
+                              'email': request.user.email})
 
 
 
