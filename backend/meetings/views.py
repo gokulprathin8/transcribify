@@ -1,11 +1,12 @@
 import uuid
 import boto3
+from rest_framework import views
 from rest_framework.response import Response
 
 from backend.settings import env
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 
-from meetings.serializer import CreateMeetingSerializer
+from meetings.serializer import CreateMeetingSerializer, FileUploadSerializer
 from meetings.models import AWSTranscriptions, Meetings, TranscriptionStatus
 
 transcribe = boto3.client('transcribe', region_name='us-east-1',
@@ -77,11 +78,38 @@ class FetchTranscription(generics.ListAPIView):
         return Response(data=data, status=200)
 
 
-class Transcriptions(generics.GenericAPIView):
+class Transcriptions(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         return AWSTranscriptions.objects.all()
 
+    def get(self, request, *args, **kwargs):
+        return AWSTranscriptions.objects.filter(meeting__owner=request.owner.id)
 
-    def get
+
+class FileUploadView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = FileUploadSerializer(data=request.data)
+        if serializer.is_valid():
+            file = serializer.validated_data['file']
+            file_name = file.name
+            bucket_name = "gmu-hackathon-devbucket0g33v4"
+            region_name = 'us-east-1'
+
+            s3 = boto3.client('s3', region_name=region_name,
+                              aws_access_key_id=env('aws_access_key_id'),
+                              aws_secret_access_key=env('aws_secret_access_key'),
+                              aws_session_token=env('aws_session_token'))
+            try:
+                s3.upload_fileobj(file, bucket_name, file_name)
+                file_url = f"https://{bucket_name}.s3.{region_name}.amazonaws.com/{file_name}"
+                return Response({"message": f"Successfully uploaded {file_name} to {bucket_name}.",
+                                 "file_url": file_url}, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
