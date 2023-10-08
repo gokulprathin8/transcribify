@@ -5,9 +5,13 @@ from rest_framework.response import Response
 from backend.settings import env
 from rest_framework import generics, permissions
 
+from meetings.serializer import CreateMeetingSerializer
 from meetings.models import AWSTranscriptions, Meetings, TranscriptionStatus
 
-from meetings.serializer import CreateMeetingSerializer
+transcribe = boto3.client('transcribe', region_name='us-east-1',
+                          aws_access_key_id=env('aws_access_key_id'),
+                          aws_secret_access_key=env('aws_secret_access_key'),
+                          aws_session_token=env('aws_session_token'))
 
 
 class CreateMeeting(generics.CreateAPIView):
@@ -16,10 +20,6 @@ class CreateMeeting(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         data = request.data
-        transcribe = boto3.client('transcribe', region_name='us-east-1',
-                                  aws_access_key_id=env('aws_access_key_id'),
-                                  aws_secret_access_key=env('aws_secret_access_key'),
-                                  aws_session_token=env('aws_session_token'))
         job_name = str(uuid.uuid4())
         output_bucket = 'gmu-hackathon-devbucket0g33v4'
 
@@ -48,3 +48,21 @@ class CreateMeeting(generics.CreateAPIView):
         )
 
         return Response(data=resp)
+
+
+class FetchTranscription(generics.ListAPIView):
+
+    permission_classes = (permissions.AllowAny,)
+
+    def fetch_transcription_status(self, job_name):
+        response = transcribe.get_transcription_job(TranscriptionJobName=job_name)
+        job_status = response['TranscriptionJob']['TranscriptionJobStatus']
+
+        if job_status == 'COMPLETED':
+            return response['TranscriptionJob']['Transcript']['TranscriptFileUri']
+        else:
+            return None
+
+    def get(self, request, *args, **kwargs):
+        self.fetch_transcription_status(job_name="")
+
