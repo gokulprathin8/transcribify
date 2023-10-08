@@ -1,13 +1,14 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import {Button, Typography} from "antd";
+import { Button, Typography, Input } from "antd";
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import useAuthStore from '../store/authStore';
+import {BACKEND_SERVER_URL} from "@/app/store/constants";
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 const LoginContainer = styled.div`
   display: flex;
@@ -49,45 +50,72 @@ const LoginButton = styled(Button)`
   max-width: 150px;
 `;
 
-
-// Function that does the 
 function LoginPage() {
-  return (
-      <LoginContainer>
-          <ImageContainer>
-              <Image
-                  src="/static/login-page.jpg"
-                  alt="Image Description"
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
-              />
-          </ImageContainer>
+    const { login } = useAuthStore();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-          <CodeBlockContainer>
-              <LoginInnerContainer>
-                  <Title level={1}>Welcome back!</Title>
+    const handleLogin = async () => {
+        const response = await fetch(`${BACKEND_SERVER_URL}/accounts/login/`, {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
-                  <LoginSubscript>Please enter your details</LoginSubscript>
+        const data = await response.json();
 
-                  <InputContainer>
-                      <Input size="large" placeholder="john.doe@example.com" prefix={<UserOutlined />} />
-                  </InputContainer>
-                  <InputContainer>
-                      <Input.Password
-                          size="large"
-                          prefix={<LockOutlined />}
-                          placeholder="Your password."
-                          iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                      />
-                  </InputContainer>
-                  <ButtonContainer>
-                      <LoginButton type="primary"  block>Login</LoginButton>
-                  </ButtonContainer>
-              </LoginInnerContainer>
-          </CodeBlockContainer>
-      </LoginContainer>
-  );
+        if (response.ok) {
+            login(data.user, data.token);
+        } else {
+            // Handle errors
+            console.error("Login failed", data);
+        }
+    };
+
+    return (
+        <LoginContainer>
+            <ImageContainer>
+                <Image
+                    src="/static/login-page.jpg"
+                    alt="Image Description"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center"
+                />
+            </ImageContainer>
+            <CodeBlockContainer>
+                <LoginInnerContainer>
+                    <Title level={1}>Welcome back!</Title>
+                    <InputContainer>
+                        <Input
+                            size="large"
+                            placeholder="john.doe@example.com"
+                            prefix={<UserOutlined />}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </InputContainer>
+                    <InputContainer>
+                        <Input.Password
+                            size="large"
+                            prefix={<LockOutlined />}
+                            placeholder="Your password."
+                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </InputContainer>
+                    <ButtonContainer>
+                        <LoginButton type="primary" block onClick={handleLogin}>
+                            Login
+                        </LoginButton>
+                    </ButtonContainer>
+                </LoginInnerContainer>
+            </CodeBlockContainer>
+        </LoginContainer>
+    );
 }
 
 export default LoginPage;
