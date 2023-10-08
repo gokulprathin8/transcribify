@@ -62,7 +62,17 @@ class CreateMeeting(generics.CreateAPIView):
 
 
 class FetchTranscription(generics.ListAPIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
-        fetch_transcription_status(job_name="")
+        meeting = Meetings.objects.filter(owner_id=request.user.id,
+                                          awstranscriptions__status=TranscriptionStatus.IN_PROGRESS
+                                          ).order_by('-created_at').first()
+        trans_job = AWSTranscriptions.objects.filter(meeting_id=meeting.id).first()
+        data = fetch_transcription_status(job_name=trans_job.transcription_id)
+        if data is not None:
+            trans_job = AWSTranscriptions.objects.get(pk=trans_job)
+            trans_job.transcription_url = data
+            trans_job.save()
+        return Response(data=data, status=200)
+
