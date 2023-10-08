@@ -39,20 +39,20 @@ function SideNavbar() {
         Overview
       </NavItem>
       <NavItem
-        active={router.pathname === "/annotate"}
-        onClick={() => router.push("/annotate")}
+        active={router.pathname === "/home/annotation"}
+        onClick={() => router.push("/home/annotation")}
       >
         Annotate
       </NavItem>
       <NavItem
-        active={router.pathname === "/insights"}
-        onClick={() => router.push("/insights")}
+        active={router.pathname === "/home/insights"}
+        onClick={() => router.push("/home/insights")}
       >
         Insights
       </NavItem>
       <NavItem
-        active={router.pathname === "/notifications"}
-        onClick={() => router.push("/notifications")}
+        active={router.pathname === "/home/notifications"}
+        onClick={() => router.push("/home/notifications")}
       >
         Notifications
       </NavItem>
