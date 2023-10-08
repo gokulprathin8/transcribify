@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from django.db.models import Count, Q
 from meetings.models import Meetings, AWSTranscriptions, MeetingNotes
 
+
 class DashboardAPIView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
