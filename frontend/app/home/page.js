@@ -1,12 +1,12 @@
-"use client";
+import React from 'react';
+import Layout from './layout';
 
-import React from "react";
-import styled from "styled-components";
-import { Button, Input, Upload, Avatar, Icon } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-
-function DashboardPage() {
-    
+function HomePage() {
+  return (
+    <Layout>
+      <div>Hello!</div>
+    </Layout>
+  );
 }
 
-export default DashboardPage;
+export default HomePage;
