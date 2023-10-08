@@ -1,27 +1,26 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, Upload, Avatar, Icon } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  ArrowLeftOutlined,
+  MailOutlined,
+  LinkOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 import useAuthStore from "@/app/store/authStore";
-import {BACKEND_SERVER_URL} from "@/app/store/constants";
-
-const StyledButton = styled(Button)`
-  margin: 0 10px; // Horizontal space between buttons
-  padding: 12px 36px; // Increased padding for larger button size
-  font-size: 24px; // Larger font size
-  height: auto; // Let the button's height adjust to its content
-  border-radius: 25px; // Rounded corners
-`;
+import { BACKEND_SERVER_URL } from "@/app/store/constants";
 
 const ProfileBody = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #74a1c1;
+  background-color: #e9f1f6; // A softer blue background
 `;
 
 const ProfileInnerContainer = styled.div`
@@ -29,40 +28,78 @@ const ProfileInnerContainer = styled.div`
   flex-direction: column;
   background-color: white;
   border-radius: 15px;
-  width: calc(100% - 150px);
-  height: calc(100vh - 200px);
-  margin: 30px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  width: calc(100% - 80px);
+  margin: 15px;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.1);
+  padding-top: 15px;
+`;
+
+const TopSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 20px 60px;
 `;
 
 const DetailSection = styled.div`
-  flex: 6; // 60% of the horizontal space
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 60px;
-`;
-
-const PhotoSection = styled.div`
-  flex: 4; // 40% of the horizontal space
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 40px;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
+  gap: 20px; // Space between buttons
+  margin-top: 30px;
+  margin-bottom: 20px;
 `;
 
-const UploadContainer = styled.div`
-  margin-top: 40px;
+const ProfileButton = styled(Button)`
+  padding: 10px 40px; // Adjusted padding
+  font-size: 18px;    // Adjusted font size
+  border-radius: 25px; 
+  height: auto;       // Allows height to adjust based on content
+  align-items: center;  // Vertically align text 
+  display: flex;      // Needed for align-items to work
+  justify-content: center; // Horizontally center the text
+`;
+
+const BackButton = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  svg {
+    font-size: 24px;
+    color: #333;
+    margin-right: 5px;
+  }
 `;
 
 const ProfileInput = styled(Input)`
   margin: 15px 0;
+`;
+
+const ProfileTitle = styled.div`
+  font-size: 64px;
+  margin-bottom: 10px;
+`;
+
+const PhotoSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
 `;
 
 const NameGroup = styled.div`
@@ -71,100 +108,86 @@ const NameGroup = styled.div`
   width: 100%;
 `;
 
-const ProfileTitle = styled.div`
-  font-size: 64px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  margin-bottom: 10px;
-`;
-
-const TopSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  max-height: 600px;
-  padding: 60px 60px 0px 60px;
-`;
-
-const ProfileButton = styled(Button)`
-  margin: 0 10px;
-  padding: 12px 36px;
-  font-size: 24px;
-  height: auto;
-  border-radius: 25px;
-`;
-
 const profileData = async (token) => {
   return await fetch(`${BACKEND_SERVER_URL}/accounts/current_profile`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Authorization': `Token ${token}`
-    }
+      Authorization: `Token ${token}`,
+    },
   });
-}
+};
 
 function ProfilePage() {
+  const router = useRouter();
   let [getUserState, setUserState] = useState({});
   const userToken = useAuthStore((state) => state.token);
 
-  useEffect( () => {
-    profileData(userToken).then(r => {
-      console.log(r.json(), 'test');
+  useEffect(() => {
+    profileData(userToken).then((r) => {
+      console.log(r.json(), "test");
     });
   }, []);
 
   return (
     <ProfileBody>
       <ProfileInnerContainer>
+        <BackButton onClick={() => router.back()}>
+          <ArrowLeftOutlined />
+          Back
+        </BackButton>
         <TopSection>
-          <DetailSection>
-            <ProfileTitle>Profile</ProfileTitle>
+        <DetailSection>
+          <ProfileTitle>Profile</ProfileTitle>
+          <ProfileInput
+            size="large"
+            placeholder="Username"
+            prefix={<UserOutlined />}
+          />
+          <NameGroup>
             <ProfileInput
-              size="large"
-              placeholder="Username"
-              prefix={<UserOutlined />}
+              style={{ width: "49.5%" }}
+              placeholder="First name"
+              prefix={<UserOutlined />} // Icon for first name
             />
-            <NameGroup>
-              <ProfileInput
-                style={{ width: "49.5%" }}
-                placeholder="First name"
-                // value="1"
-              />
-              <ProfileInput
-                style={{ width: "49.5%" }}
-                placeholder="Last name"
-              />
-            </NameGroup>
-            <ProfileInput size="large" placeholder="Age" />
             <ProfileInput
-              size="large"
-              placeholder="Website"
-              prefix={<Icon type="link" />}
+              style={{ width: "49.5%" }}
+              placeholder="Last name"
+              prefix={<UserOutlined />} // Icon for last name
             />
-          </DetailSection>
-          <PhotoSection>
-            <Avatar size={256} icon={<UserOutlined />} />
-            <UploadContainer>
-              <Upload>
-                <Button>
-                  <Icon type="upload" /> Upload Picture
-                </Button>
-              </Upload>
-            </UploadContainer>
-          </PhotoSection>
-        </TopSection>
-        <ButtonGroup>
-          <ProfileButton
-            type="primary"
-            style={{ backgroundColor: "green", borderColor: "green" }}
-          >
-            Save
-          </ProfileButton>
-          <ProfileButton type="primary" danger>
-            Log Out
-          </ProfileButton>
-        </ButtonGroup>
+          </NameGroup>
+          <ProfileInput
+            size="large"
+            placeholder="Email"
+            prefix={<MailOutlined />} // Icon for email
+          />
+          <ProfileInput
+            size="large"
+            placeholder="Age"
+            prefix={<CalendarOutlined />} // Icon for age
+          />
+          <ProfileInput
+            size="large"
+            placeholder="Website"
+            prefix={<LinkOutlined />} // Icon for website
+          />
+        </DetailSection>
+        <PhotoSection>
+          <Avatar size={256} icon={<UserOutlined />} style={{ marginBottom: "20px" }} /> 
+          <Upload>
+            <Button>
+              <Icon type="upload" /> Upload Picture
+            </Button>
+          </Upload>
+        </PhotoSection>
+      </TopSection>
+      <ButtonGroup>
+        <ProfileButton type="primary" style={{ backgroundColor: "green", borderColor: "green" }}>
+          Save
+        </ProfileButton>
+        <ProfileButton type="primary" danger>
+          Log Out
+        </ProfileButton>
+      </ButtonGroup>
       </ProfileInnerContainer>
     </ProfileBody>
   );
