@@ -120,7 +120,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': env('postgres_password'),
-        'HOST': 'localhost',
+        'HOST': env('postgres_host'),
         'PORT': '5432',
     }
 }
