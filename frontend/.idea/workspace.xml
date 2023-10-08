@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cba93b74-9e27-4d81-ba4d-d6bb1e03090d" name="Changes" comment="changes to integrate api">
+    <list default="true" id="cba93b74-9e27-4d81-ba4d-d6bb1e03090d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/store/annotationStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/meetings/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/meetings/serializer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/store/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/constants.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +47,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/gokulprathin/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -68,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696704386549</updated>
       <workItem from="1696704387322" duration="5537000" />
-      <workItem from="1696751344728" duration="9795000" />
+      <workItem from="1696751344728" duration="10388000" />
     </task>
     <task id="LOCAL-00001" summary="added login page structure">
       <option name="closed" value="true" />
@@ -110,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696760344776</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="changes to home page">
+      <option name="closed" value="true" />
+      <created>1696762721425</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696762721425</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +132,7 @@
     <MESSAGE value="if registration is successful go to login page" />
     <MESSAGE value="change position to inherit" />
     <MESSAGE value="changes to integrate api" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes to integrate api" />
+    <MESSAGE value="changes to home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes to home page" />
   </component>
 </project>

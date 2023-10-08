@@ -22,3 +22,4 @@ class AWSTranscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = AWSTranscriptions
         fields = '__all__'
+        depth = 1
