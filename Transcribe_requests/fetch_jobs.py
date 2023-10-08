@@ -31,7 +31,7 @@ def fetch_transcription_status(uuid):
 
 if __name__ == "__main__":
     # Define the UUIDs of the transcription jobs to fetch
-    job_uuids = ['6a63e085-fcb6-4285-b29d-2d5b6df37201', '28cff3e0-55d8-42ab-9b4a-5a94a605d895', 'a7103ece-92d8-4521-9bb6-026b12e4af0d']  # Replace with the UUIDs you want to fetch
+    job_uuids = ['ac9d17f6-015f-421c-8686-34eafbd29e84', 'b9816333-496f-4271-9795-b5044b5bc38c', '463f4231-bdf9-4399-a30e-9c0a6fec4ce5', '296b21a6-c3ee-4bfe-a663-f06e138a58b1']  # Replace with the UUIDs you want to fetch
 
     # Create a ThreadPoolExecutor to run transcription job fetching in parallel
     with concurrent.futures.ThreadPoolExecutor() as executor:
