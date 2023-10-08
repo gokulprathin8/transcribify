@@ -14,6 +14,16 @@ transcribe = boto3.client('transcribe', region_name='us-east-1',
                           aws_session_token=env('aws_session_token'))
 
 
+def fetch_transcription_status(job_name):
+    response = transcribe.get_transcription_job(TranscriptionJobName=job_name)
+    job_status = response['TranscriptionJob']['TranscriptionJobStatus']
+
+    if job_status == 'COMPLETED':
+        return response['TranscriptionJob']['Transcript']['TranscriptFileUri']
+    else:
+        return None
+
+
 class CreateMeeting(generics.CreateAPIView):
     serializer_class = CreateMeetingSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -25,7 +35,8 @@ class CreateMeeting(generics.CreateAPIView):
 
         meeting = Meetings.objects.create(
             title=data["title"],
-            video_url=data["video_url"]
+            video_url=data["video_url"],
+            owner_id=request.user.id
         )
 
         resp = transcribe.start_transcription_job(
@@ -51,18 +62,7 @@ class CreateMeeting(generics.CreateAPIView):
 
 
 class FetchTranscription(generics.ListAPIView):
-
     permission_classes = (permissions.AllowAny,)
 
-    def fetch_transcription_status(self, job_name):
-        response = transcribe.get_transcription_job(TranscriptionJobName=job_name)
-        job_status = response['TranscriptionJob']['TranscriptionJobStatus']
-
-        if job_status == 'COMPLETED':
-            return response['TranscriptionJob']['Transcript']['TranscriptFileUri']
-        else:
-            return None
-
     def get(self, request, *args, **kwargs):
-        self.fetch_transcription_status(job_name="")
-
+        fetch_transcription_status(job_name="")

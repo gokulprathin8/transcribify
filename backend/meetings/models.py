@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from accounts.models import CustomUser
 
 
 class TranscriptionStatus(models.TextChoices):
@@ -11,6 +12,7 @@ class TranscriptionStatus(models.TextChoices):
 class Meetings(models.Model):
     title = models.TextField(max_length=1024, null=False, blank=False)
     video_url = models.URLField(null=False, blank=False)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
