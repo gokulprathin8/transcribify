@@ -7,7 +7,7 @@ const Navbar = styled.div`
   background-color: #82c2ff;
   height: 100vh;
   width: 250px;
-  position: fixed;
+  position: inherit;
 `;
 
 const NavItem = styled.div`

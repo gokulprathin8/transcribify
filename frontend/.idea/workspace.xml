@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba93b74-9e27-4d81-ba4d-d6bb1e03090d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/home/annotation/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/register/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/register/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stores/sample.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/home/annotation.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/annotation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/home/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/layout.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696704386549</updated>
       <workItem from="1696704387322" duration="5537000" />
-      <workItem from="1696751344728" duration="2155000" />
+      <workItem from="1696751344728" duration="4483000" />
     </task>
     <task id="LOCAL-00001" summary="added login page structure">
       <option name="closed" value="true" />
@@ -86,7 +87,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696710618446</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="if registration is successful go to login page">
+      <option name="closed" value="true" />
+      <created>1696753557766</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1696753557766</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -95,6 +104,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added login page structure" />
     <MESSAGE value="changes to FE" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes to FE" />
+    <MESSAGE value="if regs" />
+    <MESSAGE value="if registration is successful go to login page" />
+    <option name="LAST_COMMIT_MESSAGE" value="if registration is successful go to login page" />
   </component>
 </project>
