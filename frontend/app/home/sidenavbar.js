@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation"; // Make sure to import from the correct path
 import styled from "styled-components";
 import {
@@ -23,11 +24,21 @@ const SidebarContainer = styled.div`
   padding-top: 16px;
 `;
 
+const SearchBar = styled.input`
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px; /* Larger font size for better visibility */
+`;
+
 const NavItem = styled.div`
   width: 100%;
-  max-width: 100%;
+  max-width: 80%;
   padding: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   background-color: ${(props) => (props.active ? "#5e6472" : "#4a5066")};
   transition: background-color 0.3s;
   cursor: pointer;
@@ -53,6 +64,7 @@ const NavItem = styled.div`
 
 function SideNavbar() {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navItems = [
     { path: "/profile", label: "Profile", icon: <UserOutlined /> },
@@ -66,16 +78,26 @@ function SideNavbar() {
 
   return (
     <SidebarContainer>
-      {navItems.map((item) => (
-        <NavItem
-          key={item.path}
-          active={router.pathname === item.path}
-          onClick={() => router.push(item.path)}
-        >
-          {item.icon}
-          <span>{item.label}</span>
-        </NavItem>
-      ))}
+      <SearchBar
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {navItems
+        .filter((item) =>
+          item.label.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .map((item) => (
+          <NavItem
+            key={item.path}
+            active={router.pathname === item.path}
+            onClick={() => router.push(item.path)}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </NavItem>
+        ))}
     </SidebarContainer>
   );
 }
