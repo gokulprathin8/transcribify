@@ -76,3 +76,12 @@ class FetchTranscription(generics.ListAPIView):
             trans_job.save()
         return Response(data=data, status=200)
 
+
+class Transcriptions(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return AWSTranscriptions.objects.all()
+
+
+    def get
