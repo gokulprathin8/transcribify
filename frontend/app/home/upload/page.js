@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { Upload, Button, Input, message, Card, Typography } from 'antd';
@@ -32,29 +32,34 @@ const FileUploader = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+        background: 'linear-gradient(to right, #e6f7ff, #b3d4e0)'
     };
 
     return (
         <Card bordered={false} style={cardStyle}>
-            <Title level={2} style={{ color: 'white' }}>Upload Your File or Provide a URL</Title>
+            <Title level={2}>Upload Your File or Provide a URL</Title>
             <Upload
                 onChange={handleFileChange}
                 showUploadList={false}
             >
-                <Button icon={<UploadOutlined />}>Upload File</Button>
+                <Button 
+                    icon={<UploadOutlined />} 
+                    style={{ background: '#b3d4e0', border: 'none', marginBottom: '1rem' }}
+                    ghost
+                >
+                    Upload File
+                </Button>
             </Upload>
-            <br />
             <Input
                 placeholder="Or enter a URL"
                 value={fileUrl}
                 onChange={e => setFileUrl(e.target.value)}
-                style={{ width: 300, marginTop: 20 }}
+                style={{ width: 300, marginTop: 20, borderRadius: '8px' }}
             />
             <Button
                 type="primary"
                 onClick={handleUrlSubmit}
-                style={{ marginTop: 20 }}
+                style={{ marginTop: 20, background: '#b3d4e0', border: 'none', borderRadius: '8px' }}
             >
                 Submit URL
             </Button>
