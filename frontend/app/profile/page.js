@@ -1,9 +1,12 @@
 "use client";
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { Button, Input, Upload, Avatar, Icon } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+
+import useAuthStore from "@/app/store/authStore";
+import {BACKEND_SERVER_URL} from "@/app/store/constants";
 
 const StyledButton = styled(Button)`
   margin: 0 10px; // Horizontal space between buttons
@@ -92,7 +95,25 @@ const ProfileButton = styled(Button)`
   border-radius: 25px;
 `;
 
+const profileData = async (token) => {
+  return await fetch(`${BACKEND_SERVER_URL}/accounts/current_profile`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${token}`
+    }
+  });
+}
+
 function ProfilePage() {
+  let [getUserState, setUserState] = useState({});
+  const userToken = useAuthStore((state) => state.token);
+
+  useEffect( () => {
+    profileData(userToken).then(r => {
+      console.log(r.json(), 'test');
+    });
+  }, []);
+
   return (
     <ProfileBody>
       <ProfileInnerContainer>
@@ -108,6 +129,7 @@ function ProfilePage() {
               <ProfileInput
                 style={{ width: "49.5%" }}
                 placeholder="First name"
+                // value="1"
               />
               <ProfileInput
                 style={{ width: "49.5%" }}

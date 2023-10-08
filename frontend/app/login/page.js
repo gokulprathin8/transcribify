@@ -51,7 +51,7 @@ const LoginButton = styled(Button)`
 `;
 
 function LoginPage() {
-    const { login } = useAuthStore();
+    const login = useAuthStore((state) => state.login);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 

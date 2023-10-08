@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba93b74-9e27-4d81-ba4d-d6bb1e03090d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/home/upload/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/home/annotation/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/annotation/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/login/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/profile/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/authStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/authStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696704386549</updated>
       <workItem from="1696704387322" duration="5537000" />
-      <workItem from="1696751344728" duration="5459000" />
+      <workItem from="1696751344728" duration="7852000" />
     </task>
     <task id="LOCAL-00001" summary="added login page structure">
       <option name="closed" value="true" />
