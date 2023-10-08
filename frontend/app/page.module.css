@@ -167,7 +167,7 @@
   .description div {
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: inherit;
     width: 100%;
   }
 

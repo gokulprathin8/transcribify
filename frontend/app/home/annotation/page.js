@@ -50,13 +50,13 @@ const Annotation = () => {
                 <div
                     style={{
                         backgroundColor: "white",
-                        borderRadius: "0 0 20px 20px", // Increase the border radius for more curvature
+                        borderRadius: "0 0 20px 20px",
                         padding: "10px",
                         height: "200px",
                         width: "900px",
                         marginLeft: "auto",
                         marginRight: "auto",
-                        marginTop: "-10px",
+                        marginTop: "10px",
                     }}
                 >
                     {transcription}
