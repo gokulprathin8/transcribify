@@ -6,7 +6,9 @@ import Image from 'next/image';
 import {Button, Typography} from "antd";
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
+import useAuthStore from '../store/authStore';
 
+const { login } = useAuthStore();
 const {Title} = Typography;
 
 const LoginContainer = styled.div`
@@ -48,6 +50,22 @@ const ButtonContainer = styled.div`
 const LoginButton = styled(Button)`
   max-width: 150px;
 `;
+
+
+// Login form submission
+const handleSubmit = async () => {
+    const response = await fetch('/api/login', { ... });
+    const data = await response.json();
+
+    if (response.ok) {
+        localStorage.setItem('token', data.token);  // Store the token locally
+        login(data.user, data.token); // Update Zustand store with user data and token
+    } else {
+        // Handle login error
+        console.log('Authentication Error!')
+    }
+};
+
 
 
 // Function that does the 
