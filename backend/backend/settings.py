@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-^jic0b$_8d&xs*vulv6)c7m#(z92=al-k(c-0te0=u9(j8a0cs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['100.27.13.212', '127.0.0.1']
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_yasg",
+    "corsheaders",
 
     "accounts",
     "meetings",
@@ -54,10 +55,16 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://100.27.13.212:8000"
 ]
 
 REST_FRAMEWORK = {
@@ -103,6 +110,17 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# DATABASES = {
+# ‘default’: {
+# ‘ENGINE’: ‘django.db.backends.postgresql_psycopg2’,
+# ‘NAME’: ‘my_db’,
+# ‘USER’ : ‘hero’,
+# ‘PASSWORD’ : ‘my_db@123’,
+# ‘HOST’ : ‘localhost’,
+# ‘PORT’ : ‘5432’,
+# }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
