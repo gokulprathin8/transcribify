@@ -1,5 +1,5 @@
 // components/Layout.js
-import SideNavbar from './SideNavbar';
+import SideNavbar from './sidenavbar';
 
 const Layout = ({ children }) => {
     return (
