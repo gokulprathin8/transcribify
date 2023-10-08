@@ -91,7 +91,6 @@ class Transcriptions(generics.ListAPIView):
     #     return Response(data=serz, status=200)
 
 
-
 class FileUploadView(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
 

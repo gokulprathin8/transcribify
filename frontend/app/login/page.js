@@ -7,6 +7,7 @@ import { Button, Typography, Input } from "antd";
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from '@ant-design/icons';
 import useAuthStore from '../store/authStore';
 import {BACKEND_SERVER_URL} from "@/app/store/constants";
+import { useRouter } from 'next/navigation';
 
 const { Title } = Typography;
 
@@ -51,6 +52,7 @@ const LoginButton = styled(Button)`
 `;
 
 function LoginPage() {
+    const router = useRouter();
     const login = useAuthStore((state) => state.login);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -68,6 +70,7 @@ function LoginPage() {
 
         if (response.ok) {
             login(data.user, data.token);
+            router.push("/home")
         } else {
             // Handle errors
             console.error("Login failed", data);

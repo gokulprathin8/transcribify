@@ -11,6 +11,8 @@ import {
 } from '@ant-design/icons';
 import {BACKEND_SERVER_URL} from "@/app/store/constants";
 import useAuthStore from "@/app/store/authStore";
+import useAnnotationStore from "@/app/store/annotationStore";
+import { useRouter } from 'next/navigation';
 
 const { Title, Text } = Typography;
 
@@ -32,9 +34,10 @@ const fetchMeetings = async (token) => {
 
 
 const DashboardPage = () => {
-
+  const router = useRouter();
   const userToken = useAuthStore((state) => state.token);
   const [meetings, setMeetings] = useState([]);
+  const setAnnotationDetails = useAnnotationStore((state) => state.setAnnotationDetails)
 
   useEffect(() => {
     fetchMeetings(userToken).then((data) => {
@@ -46,11 +49,6 @@ const DashboardPage = () => {
 
   
   const columns = [
-    {
-      title: 'Meeting',
-      dataIndex: 'meeting',
-      render: text => <Text strong>{text}</Text>,
-    },
     {
       title: 'Status',
       dataIndex: 'status',
@@ -71,27 +69,6 @@ const DashboardPage = () => {
       dataIndex: 'transcription_url',
       render: text => <Text strong>{text}</Text>,
     }
-  ];
-
-  const data = [
-    {
-      key: '1',
-      title: 'Team Sync',
-      date: '2023-10-05',
-      category: 'Internal',
-    },
-    {
-      key: '2',
-      title: 'Client Pitch',
-      date: '2023-10-08',
-      category: 'External',
-    },
-    {
-      key: '3',
-      title: 'Product Review',
-      date: '2023-10-10',
-      category: 'Review',
-    },
   ];
   
   return (
@@ -130,7 +107,18 @@ const DashboardPage = () => {
             }}
           />
         </Space>
-        <Table columns={columns} dataSource={meetings} pagination={false} />
+        <Table
+            columns={columns}
+            dataSource={meetings}
+            pagination={false}
+            onRow={(record, rowIndex) => ({
+              onClick: () => {
+                setAnnotationDetails(record['meeting']['video_url'], record['transcription_url']);
+                console.log(record);
+                router.push("/home/annotation")
+              },
+            })}
+        />
       </div>
 
       {/* Calendar */}
