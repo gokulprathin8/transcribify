@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Row, Col, Card, Table, Calendar, Typography, Button, Space } from 'antd';
 import {
   FileTextOutlined,
@@ -9,10 +9,36 @@ import {
   AppstoreAddOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
+import {BACKEND_SERVER_URL} from "@/app/store/constants";
+import useAuthStore from "@/app/store/authStore";
 
 const { Title, Text } = Typography;
 
+const fetchMeetings = async (token) => {
+  const data = await fetch(`${BACKEND_SERVER_URL}/meetings/transcriptions`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${token}`
+    }
+  });
+  console.log(data, 'd');
+  return data;
+}
+
 const DashboardPage = () => {
+
+  const userToken = useAuthStore((state) => state.token);
+  const [meetings, setMeetings] = useState([]);
+
+  useEffect(() => {
+    fetchMeetings(userToken).then(
+        async (resp) => {
+          setMeetings(await resp.json())
+          console.log(await resp.json())
+        }
+    )
+  }, []);
+
   
   const columns = [
     {

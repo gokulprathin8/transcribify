@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from backend.settings import env
 from rest_framework import generics, permissions, status
 
-from meetings.serializer import CreateMeetingSerializer, FileUploadSerializer
+from meetings.serializer import CreateMeetingSerializer, FileUploadSerializer, TranscriptionSerializer, \
+    AWSTranscriptionSerializer
 from meetings.models import AWSTranscriptions, Meetings, TranscriptionStatus
 
 transcribe = boto3.client('transcribe', region_name='us-east-1',
@@ -70,22 +71,25 @@ class FetchTranscription(generics.ListAPIView):
                                           awstranscriptions__status=TranscriptionStatus.IN_PROGRESS
                                           ).order_by('-created_at').first()
         trans_job = AWSTranscriptions.objects.filter(meeting_id=meeting.id).first()
-        data = fetch_transcription_status(job_name=trans_job.transcription_id)
+        data = fetch_transcription_status(job_name=str(trans_job.transcription_id))
         if data is not None:
-            trans_job = AWSTranscriptions.objects.get(pk=trans_job)
+            trans_job = AWSTranscriptions.objects.get(pk=trans_job.id)
             trans_job.transcription_url = data
+            trans_job.status = TranscriptionStatus.COMPLETED
             trans_job.save()
         return Response(data=data, status=200)
 
 
 class Transcriptions(generics.ListAPIView):
+    queryset = AWSTranscriptions.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = AWSTranscriptionSerializer
 
-    def get_queryset(self):
-        return AWSTranscriptions.objects.all()
+    # def get(self, request, *args, **kwargs):
+    #     data = AWSTranscriptions.objects.all()
+    #     serz = TranscriptionSerializer(data).data
+    #     return Response(data=serz, status=200)
 
-    def get(self, request, *args, **kwargs):
-        return AWSTranscriptions.objects.filter(meeting__owner=request.owner.id)
 
 
 class FileUploadView(views.APIView):

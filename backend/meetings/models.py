@@ -20,8 +20,8 @@ class Meetings(models.Model):
 
 class AWSTranscriptions(models.Model):
     meeting = models.ForeignKey(Meetings, on_delete=models.CASCADE)
-    transcription_url = models.URLField(blank=False, null=False)
-    transcription_id = models.UUIDField(blank=False, null=False)
+    transcription_url = models.URLField(blank=True, null=True)
+    transcription_id = models.UUIDField(blank=True, null=True)
     status = models.CharField(max_length=255,
                               choices=TranscriptionStatus.choices,
                               default=TranscriptionStatus.STARTED)
